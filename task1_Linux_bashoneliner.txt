@@ -1,0 +1,20 @@
+history |     
+    sed 's/^ \+//;s/  / /' |     
+    cut -d' ' -f2- |     
+    awk '/^sudo/{ count[$0]++ } END { for (i in count) print count[i], i }' |     
+    sort -rn
+
+
+Explanation:
+1. sed command remove the leading spaces and convert the double space after the history command number to a single space:
+   history | sed 's/^ \+//;s/  / /'
+
+2. cut command is used to remove the first column (the history numbers): 
+   cut -d' ' -f2- |
+
+3. awk command is used to record how many times 'sudo' command has been seen:
+   awk '/^sudo/{ count[$0]++ } END { for (i in count) print count[i], i }' | 
+
+4. Then we sort the output numerically and reverse it:
+   sort -rn
+
